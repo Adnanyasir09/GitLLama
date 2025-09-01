@@ -9,7 +9,6 @@ from langchain_community.vectorstores import FAISS
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import HuggingFaceEmbeddings
 
-
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.chains.combine_documents import create_stuff_documents_chain
@@ -22,6 +21,21 @@ load_dotenv()
 
 # Streamlit Page Config
 st.set_page_config(page_title="Git LLAMA", page_icon="🦥", layout="wide")
+
+# ---------------- HIDE STREAMLIT UI ELEMENTS ----------------
+st.markdown(
+    """
+    <style>
+    /* Hide Streamlit menu (top-right) */
+    #MainMenu {visibility: hidden;}
+    /* Hide footer (with Made with Streamlit and GitHub/Fork) */
+    footer {visibility: hidden;}
+    /* Hide header (optional, top bar) */
+    header {visibility: hidden;}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Initialize LLM and Session State
 llm = ChatGroq(model="llama-3.1-8b-instant")
@@ -44,7 +58,6 @@ def create_vector_store(docs):
     """Create and return an in-memory FAISS vector store from the documents."""
     embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
     return FAISS.from_documents(docs, embedding_model)
-
 
 
 def create_retriever_chain_from_store(vector_store):
