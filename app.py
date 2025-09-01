@@ -26,10 +26,10 @@ st.set_page_config(page_title="Git LLAMA", page_icon="🦥", layout="wide")
 st.markdown(
     """
     <style>
-    /* Hide only the GitHub/Fork ribbon in the footer */
-    footer a[href*="github"] {
-        display: none !important;
-    }
+    
+    /* Hide footer (with Made with Streamlit and GitHub/Fork) */
+    footer {visibility: hidden;}
+   
     </style>
     """,
     unsafe_allow_html=True
