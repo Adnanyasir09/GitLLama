@@ -26,8 +26,7 @@ st.set_page_config(page_title="Git LLAMA", page_icon="🦥", layout="wide")
 st.markdown(
     """
     <style>
-    /* Hide Streamlit menu (top-right) */
-    #MainMenu {visibility: hidden;}
+    
     /* Hide footer (with Made with Streamlit and GitHub/Fork) */
     footer {visibility: hidden;}
     /* Hide header (optional, top bar) */
