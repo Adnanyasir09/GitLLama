@@ -22,11 +22,10 @@ load_dotenv()
 # Streamlit Page Config
 st.set_page_config(page_title="Git LLAMA", page_icon="🦥", layout="wide")
 
-# ---------------- HIDE STREAMLIT UI ELEMENTS ----------------
+# ---------------- HIDE ONLY GITHUB & FORK FROM FOOTER ----------------
 st.markdown(
     """
     <style>
-    /* Hide only GitHub and Fork option in footer */
     footer a[href*="github"] {
         display: none !important;
     }
@@ -34,7 +33,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
 
 # Initialize LLM and Session State
 llm = ChatGroq(model="llama-3.1-8b-instant")
@@ -50,6 +48,8 @@ if "session_id" not in st.session_state:
 def reset_state():
     st.session_state.chat_history.clear()
     st.session_state.retrieval_chain = None
+    st.session_state.repo_data.clear()
+    st.session_state.current_repo = None
     gc.collect()
 
 
@@ -103,35 +103,43 @@ def process_repository(url):
     return True
 
 
-# Sidebar
-with st.sidebar:
-    st.header("GitHub Repo Input")
-    repo_url = st.text_input("Enter GitHub Repository URL")
-    col1, col2 = st.columns(2)
-    if col1.button("Load Repo") and repo_url:
-        try:
-            repo_name = repo_url.strip().split("/")[-1]
-            if process_repository(repo_url):
-                st.session_state.current_repo = repo_name
-                st.success(f"Loaded {repo_name} successfully!")
-        except Exception as e:
-            st.error(f"Failed to load repository: {e}")
-    if col2.button("Reset Chat"):
-        reset_state()
-
-# Main UI
+# ------------------- MAIN UI -------------------
 st.title("Git LLAMA 🦥 - GitHub Code Chatbot")
 
+# Centered Repo Input Section
+st.markdown("<h3 style='text-align: center;'>Load a GitHub Repository</h3>", unsafe_allow_html=True)
+
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    repo_url = st.text_input("Enter GitHub Repository URL", placeholder="https://github.com/user/repo")
+    load_col, reset_col = st.columns(2)
+    with load_col:
+        if st.button("Load Repo"):
+            if repo_url:
+                try:
+                    repo_name = repo_url.strip().split("/")[-1]
+                    if process_repository(repo_url):
+                        st.session_state.current_repo = repo_name
+                        st.success(f"Loaded {repo_name} successfully!")
+                except Exception as e:
+                    st.error(f"Failed to load repository: {e}")
+    with reset_col:
+        if st.button("Reset Chat"):
+            reset_state()
+
+# If a repo is loaded, show details and chat interface
 if st.session_state.current_repo:
     st.markdown(f"### Current Repo: `{st.session_state.current_repo}`")
 
     with st.expander("📂 Repository Structure", expanded=False):
         st.code(st.session_state.repo_data.get("tree", ""))
 
+    # Display previous chat history
     for msg in st.session_state.chat_history:
         role = "🧑 You" if msg["role"] == "user" else "🤖 Assistant"
         st.markdown(f"**{role}:** {msg['content']}")
 
+    # User query input
     user_query = st.text_input("Ask something about the code")
     if st.button("Submit Query") and user_query:
         st.session_state.chat_history.append({"role": "user", "content": user_query})
@@ -150,4 +158,4 @@ if st.session_state.current_repo:
         except Exception as e:
             st.error(f"Failed to get response: {e}")
 else:
-    st.info("📥 Load a GitHub repository from the sidebar to begin.")
+    st.info("📥 Load a GitHub repository above to begin.")
