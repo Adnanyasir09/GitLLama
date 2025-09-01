@@ -26,25 +26,14 @@ st.set_page_config(page_title="Git LLAMA", page_icon="🦥", layout="wide")
 st.markdown(
     """
     <style>
-    /* Keep header visible */
-    header {visibility: visible !important;}
-    
-    /* Hide the Streamlit menu (three dots) */
-    #MainMenu {display: none;}
-    
-    /* Hide the app title in the header */
-    header .st-emotion-cache-1avcm0n {display: none;} /* class may vary */
-    
-    /* Hide any other elements in the header except the hamburger */
-    header > div:first-child > div:nth-child(2) {display: none;}
-    
-    /* Hide footer completely */
-    footer {display: none;}
+    /* Hide only GitHub and Fork option in footer */
+    footer a[href*="github"] {
+        display: none !important;
+    }
     </style>
     """,
     unsafe_allow_html=True
 )
-
 
 
 # Initialize LLM and Session State
