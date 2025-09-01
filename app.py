@@ -23,6 +23,18 @@ load_dotenv()
 st.set_page_config(page_title="Git LLAMA", page_icon="🦥", layout="wide")
 
 # ---------------- HIDE STREAMLIT UI ELEMENTS ----------------
+st.markdown(
+    """
+    <style>
+    /* Hide only the GitHub/Fork ribbon in the footer */
+    footer a[href*="github"] {
+        display: none !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 
 
 # Initialize LLM and Session State
