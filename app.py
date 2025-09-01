@@ -30,12 +30,13 @@ st.markdown(
     #MainMenu {visibility: hidden;}
     /* Hide footer (with Made with Streamlit and GitHub/Fork) */
     footer {visibility: hidden;}
-    /* Hide header (optional, top bar) */
-    header {visibility: hidden;}
+    /* Specifically hide GitHub link and Fork in footer, but keep header and hamburger */
+    .stApp a[href*="github"] {display: none;}
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 # Initialize LLM and Session State
 llm = ChatGroq(model="llama-3.1-8b-instant")
