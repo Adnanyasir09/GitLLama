@@ -44,7 +44,7 @@ pip install -r requirements.txt
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Adnanyasir09/GitLLama.git
+git clone https://github.com/username/GitLLama.git
 cd GitLLama
 ```
 
