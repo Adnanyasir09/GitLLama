@@ -44,8 +44,8 @@ pip install -r requirements.txt
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/git-llama
-cd git-llama
+git clone https://github.com/Adnanyasir09/GitLLama.git
+cd GitLLama
 ```
 
 ### 2. Set Up Environment Variables
@@ -121,27 +121,9 @@ streamlit run app.py
 
 ---
 
-## Acknowledgment of Similar Projects
-
-This project was inspired by a similar RAG (Retrieval-Augmented Generation) application developed by Akshay Prashar using `llamaindex`. You can explore Akshay's implementation here: [AI Engineering Hub - GitHub RAG](https://github.com/patchy631/ai-engineering-hub/tree/main/github-rag).
-
-Git LLAMA was created using `langchain` to test my knowledge and capabilities with this framework.
-
 ---
 
-<!--
-## Screenshots
 
-1. **Main Interface**:
-   ![Main Interface](images/main_interface.png)
-
-2. **Repository Structure**:
-   ![Repository Structure](images/repo_structure.png)
-
-3. **Query Response**:
-   ![Query Response](images/query_response.png)
-
---- -->
 
 ## Future Enhancements
 
