@@ -32,6 +32,10 @@ st.markdown(
     footer {visibility: hidden;}
     /* Hide header (optional, top bar) */
     header {visibility: hidden;}
+     /* Background Gradient */
+    .stApp {
+        background: linear-gradient(135deg, #d1fae5, #a7f3d0, #6ee7b7);
+    }
     </style>
     """,
     unsafe_allow_html=True
@@ -107,7 +111,20 @@ def process_repository(url):
 
 
 # ------------------- MAIN UI -------------------
-st.title("Git LLAMA 🦥 - GitHub Code Chatbot")
+st.markdown(
+    """
+    <h1 style='
+        text-align: center; 
+        font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif; 
+        font-size: 3em; 
+        font-weight: bold; 
+    '>
+        Git LLAMA 🦥 - GitHub Code Chatbot
+    </h1>
+    """,
+    unsafe_allow_html=True
+)
+
 
 # Centered Repo Input Section
 st.markdown("<h3 style='text-align: center;'>Load a GitHub Repository</h3>", unsafe_allow_html=True)
@@ -136,6 +153,8 @@ if st.session_state.current_repo:
 
     with st.expander("📂 Repository Structure", expanded=False):
         st.code(st.session_state.repo_data.get("tree", ""))
+
+    
 
     # Display previous chat history
     for msg in st.session_state.chat_history:
